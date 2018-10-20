@@ -198,7 +198,9 @@ int hayEmpty(eEmpleado* pEmpleado, int tam)
         if(pEmpleado->isEmpty == TRUE)
         {
             r = RET_OK;
+            break;
         }
+        pEmpleado++;
     }
     if(r == RET_ERR)
     {
@@ -216,7 +218,9 @@ int existeLegajo(eEmpleado* pEmpleado, int tam, int leg)
         if(pEmpleado->legajo == leg)
         {
             r = RET_OK;
+            break;
         }
+        pEmpleado++;
     }
     if(r == RET_ERR)
     {
