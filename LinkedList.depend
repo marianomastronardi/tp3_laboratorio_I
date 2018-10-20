@@ -1,7 +1,8 @@
 # depslib dependency file v1.0
-1540059766 source:d:\utn fra\1º año\1º cuatrimestre\tp_laboratorio_3\linkedlist\main.c
+1540078314 source:d:\utn fra\1º año\1º cuatrimestre\tp_laboratorio_3\linkedlist\main.c
 	<stdio.h>
 	<stdlib.h>
+	<string.h>
 	"menu.h"
 	"Empleado.h"
 	"LinkedList.h"
@@ -14,14 +15,14 @@
 
 1540059349 d:\utn fra\1º año\1º cuatrimestre\tp_laboratorio_3\linkedlist\linkedlist.h
 
-1540062676 source:d:\utn fra\1º año\1º cuatrimestre\tp_laboratorio_3\linkedlist\empleado.c
+1540077680 source:d:\utn fra\1º año\1º cuatrimestre\tp_laboratorio_3\linkedlist\empleado.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 	"Empleado.h"
 	"menu.h"
 
-1540061838 d:\utn fra\1º año\1º cuatrimestre\tp_laboratorio_3\linkedlist\empleado.h
+1540078351 d:\utn fra\1º año\1º cuatrimestre\tp_laboratorio_3\linkedlist\empleado.h
 
 1540062676 source:d:\utn fra\1º año\1º cuatrimestre\tp_laboratorio_3\linkedlist\menu.c
 	<stdio.h>
