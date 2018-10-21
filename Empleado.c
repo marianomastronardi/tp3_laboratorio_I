@@ -9,7 +9,22 @@
 #define RET_OK 0
 #define RET_ERR -1
 
-void initEmpleado(eEmpleado* pEmpleado, int tam)
+void initEmpleado(eEmpleado* pEmpleado)
+{
+    pEmpleado->legajo = 0;
+    strcpy(pEmpleado->nombre, "");
+    fflush(stdin);
+    strcpy(pEmpleado->apellido, "");
+    fflush(stdin);
+    pEmpleado->sexo = ' ';
+    pEmpleado->sueldo = 0.00;
+    pEmpleado->fechaIngreso.dia = 1;
+    pEmpleado->fechaIngreso.mes = 1;
+    pEmpleado->fechaIngreso.anio = 1900;
+    pEmpleado->isEmpty = TRUE;
+}
+
+void initEmpleados(eEmpleado* pEmpleado, int tam)
 {
     for(int i = 0; i < tam; i++)
     {
@@ -46,9 +61,13 @@ void altaEmpleado(eEmpleado* pEmpleado)
     scanf("%s", cApellido);
     strcpy(pEmpleado->apellido, cApellido);
 
-    fflush(stdin);
-    printf("\nIngrese un sexo: ");
-    scanf("%c", &pEmpleado->sexo);
+    do
+    {
+        fflush(stdin);
+        printf("\nIngrese un sexo: ");
+        scanf("%c", &pEmpleado->sexo);
+    }
+    while(validarSexo(pEmpleado->sexo) == RET_ERR);
 
     printf("\nIngrese el Sueldo: ");
     scanf("%f", &pEmpleado->sueldo);
@@ -66,16 +85,9 @@ void altaEmpleado(eEmpleado* pEmpleado)
 }
 
 
-void bajaEmpleado(eEmpleado* pEmpleado, int tam, int leg)
+void bajaEmpleado(eEmpleado* pEmpleado)
 {
-    for(int i = 0; i < tam; i++)
-    {
-        if(pEmpleado->legajo == leg)
-        {
-           pEmpleado->isEmpty = TRUE;
-        }
-        pEmpleado++;
-    }
+    pEmpleado->isEmpty = TRUE;
 }
 
 void editEmpleado(eEmpleado* pEmpleado)
@@ -101,13 +113,19 @@ void editEmpleado(eEmpleado* pEmpleado)
             printf("\nIngrese un Apellido: ");
             fflush(stdin);
             scanf("%s", cApellido);
+            printf("%x", pEmpleado);
+            printf("%s", pEmpleado->apellido);
             strcpy(pEmpleado->apellido, cApellido);
             break;
 
         case 3:
-            fflush(stdin);
-            printf("\nIngrese el sexo: ");
-            scanf("%c", &pEmpleado->sexo);
+            do
+            {
+                fflush(stdin);
+                printf("\nIngrese el sexo: ");
+                scanf("%c", &pEmpleado->sexo);
+            }
+            while(validarSexo(pEmpleado->sexo) == RET_ERR);
             break;
 
         case 4:
@@ -141,14 +159,12 @@ eEmpleado* getFreeEmployee(eEmpleado* pEmpleado, int tam)
     {
         if(pEmpleado->isEmpty == TRUE)
         {
-            printf("muestro i: %d", i);
-            system("pause");
+            //printf("muestro i %d", i);
+            //system("pause");
             rEmpleado = pEmpleado;
             break;
         }
         pEmpleado++;
-        printf("muestro pEmpleado: %x", pEmpleado);
-        system("pause");
     }
     return rEmpleado;
 }
@@ -227,5 +243,33 @@ int existeLegajo(eEmpleado* pEmpleado, int tam, int leg)
         printf("\nNo existe el legajo ingresado");
     }
     return r;
+}
 
+eEmpleado* getEmployee(eEmpleado* pEmpleado, int tam)
+{
+    eEmpleado vEmpleado[0];
+    eEmpleado* r;
+    int leg;
+
+    r = vEmpleado;
+    initEmpleado(r);
+
+    printf("\nIngrese un Legajo: ");
+    scanf("%d", &leg);
+
+    if(existeLegajo(pEmpleado, tam, leg) == RET_OK)
+    {
+        for(int i = 0; i < tam; i++)
+        {
+            if(pEmpleado->legajo == leg)
+            {
+                r = pEmpleado;
+                break;
+            }
+            pEmpleado++;
+        }
+    }
+    printf("%x", r);
+    system("pause");
+    return r;
 }

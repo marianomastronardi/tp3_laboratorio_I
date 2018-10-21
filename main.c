@@ -14,17 +14,15 @@
 int main()
 {
     int opcion;
-    int leg;
     eEmpleado vEmpleado[TAM];
     eEmpleado* pEmpleado;
     char resp;
 
     pEmpleado = vEmpleado;
-    initEmpleado(pEmpleado,TAM);
+    initEmpleados(pEmpleado,TAM);
 
     do
     {
-
         do
         {
             opcion = menu();
@@ -38,28 +36,17 @@ int main()
         case 2:
             break;
         case 3:
+            //ALTA
             if(hayEmpty(pEmpleado, TAM) == RET_OK)
             {
-                pEmpleado = vEmpleado;
-                pEmpleado = getFreeEmployee(pEmpleado, TAM);
-                altaEmpleado(pEmpleado);
+                altaEmpleado(getFreeEmployee(pEmpleado, TAM));
             }
             break;
         case 4:
-            printf("\nIngrese un Legajo: ");
-            scanf("%d", &leg);
-            if(existeLegajo(pEmpleado, TAM, leg) == RET_OK)
-            {
-                //editEmpleado()
-            }
+            editEmpleado(getEmployee(pEmpleado, TAM));
             break;
         case 5:
-            printf("\nIngrese un Legajo: ");
-            scanf("%d", &leg);
-            if(existeLegajo(pEmpleado, TAM, leg) == RET_OK)
-            {
-                bajaEmpleado(pEmpleado, TAM, leg);
-            }
+            bajaEmpleado(getEmployee(pEmpleado, TAM));
             break;
         case 6:
             mostrarEmpleados(pEmpleado, TAM);
@@ -71,6 +58,7 @@ int main()
         case 9:
             break;
         case 10:
+            exit(-1);
             break;
         default:
             break;
