@@ -28,10 +28,9 @@ int subMenu()
     system("cls");
     printf("\nElija una opcion a modificar\n");
     printf("1. Nombre\n");
-    printf("2. Apellido\n");
-    printf("3. Sexo\n");
-    printf("4. Sueldo\n");
-    printf("5. Fecha de Ingreso\n");
+    printf("2. Sexo\n");
+    printf("3. Sueldo\n");
+    printf("4. Fecha de Ingreso\n");
     scanf("%d", &opcion);
     return opcion;
 }

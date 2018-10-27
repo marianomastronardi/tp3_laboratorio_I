@@ -11,7 +11,6 @@ typedef struct
 typedef struct{
 int legajo;
 char nombre[20];
-char apellido[20];
 char sexo;
 float sueldo;
 eFecha fechaIngreso;
@@ -28,7 +27,7 @@ void mostrarEmpleado(eEmpleado* pEmpleado);
 void mostrarEmpleados(eEmpleado* pEmpleado, int tam);
 int validarSexo(char sexo);
 int hayEmpty(eEmpleado* pEmpleado, int tam);
-int existeLegajo(eEmpleado* pEmpleado, int tam, int leg);
-eEmpleado* getEmployee(eEmpleado* pEmpleado, int tam);
+int existeLegajo(eEmpleado* pEmpleado, int tam);
+eEmpleado* getEmployee(eEmpleado* pEmpleado, int tam, int leg);
 
 #endif // EMPLEADO_H_INCLUDED

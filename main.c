@@ -16,6 +16,7 @@ int main()
     int opcion;
     eEmpleado vEmpleado[TAM];
     eEmpleado* pEmpleado;
+    int leg;
     char resp;
 
     pEmpleado = vEmpleado;
@@ -43,15 +44,27 @@ int main()
             }
             break;
         case 4:
-            editEmpleado(getEmployee(pEmpleado, TAM));
+            //MODI
+            leg = existeLegajo(pEmpleado, TAM);
+            if(leg != FALSE)
+            {
+                editEmpleado(getEmployee(pEmpleado, TAM, leg));
+            }
             break;
         case 5:
-            bajaEmpleado(getEmployee(pEmpleado, TAM));
+            //BAJA
+            leg = existeLegajo(pEmpleado, TAM);
+            if(leg != FALSE)
+            {
+                bajaEmpleado(getEmployee(pEmpleado, TAM, leg));
+            }
             break;
         case 6:
+            //LISTAR
             mostrarEmpleados(pEmpleado, TAM);
             break;
         case 7:
+            //ORDENAR
             break;
         case 8:
             break;
