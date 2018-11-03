@@ -3,7 +3,8 @@
 int mostrarMenu()
 {
     int r;
-
+    do
+    {
         system("cls");
         printf("************************************************************************************\n");
         printf("     Menu:                                                                          \n");
@@ -17,8 +18,9 @@ int mostrarMenu()
         printf("     8. Guardar los datos de los empleados en el archivo data.csv (modo texto).     \n");
         printf("     9. Guardar los datos de los empleados en el archivo data.csv (modo binario).   \n");
         printf("    10. Salir                                                                       \n");
-        printf("*****************************************************/                              \n");
+        printf("************************************************************************************\n");
         scanf("%d", &r);
-
+    }
+    while(r < 1 || r > 10);
     return r;
 }

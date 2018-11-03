@@ -26,6 +26,7 @@ int main()
     LinkedList* listaEmpleados = ll_newLinkedList();
     do
     {
+        system("pause");
         option = mostrarMenu();
         switch(option)
         {
@@ -57,12 +58,13 @@ int main()
             controller_saveAsBinary("data.bin", listaEmpleados);
             break;
         case 10:
+            ll_deleteLinkedList(listaEmpleados);
             exit(1);
             break;
         default:
             break;
         }
     }
-    while(option < 1 || option > 10);
+    while(option != 10);
     return 0;
 }
