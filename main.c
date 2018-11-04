@@ -26,7 +26,6 @@ int main()
     LinkedList* listaEmpleados = ll_newLinkedList();
     do
     {
-        system("pause");
         option = mostrarMenu();
         switch(option)
         {
@@ -63,6 +62,11 @@ int main()
             break;
         default:
             break;
+        }
+
+        if(option < 10)
+        {
+            system("pause");
         }
     }
     while(option != 10);

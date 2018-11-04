@@ -306,10 +306,11 @@ int controller_saveAsText(char* path, LinkedList* pArrayListEmployee)
             for(int i = 0; i < lon; i++)
             {
                 pEmployee = (Employee*) ll_get(pArrayListEmployee, i);
-
+printf("%d", strlen((char*)pEmployee));
+system("pause");
                 //if(r == RET_OK)
                 //{
-                qty=fwrite (pEmployee, sizeof(Employee), strlen((char*)pEmployee), pFile );    //Se escribe al archivo
+                qty=fwrite (pEmployee, sizeof(char), 32/*strlen((char*)pEmployee)*/, pFile );    //Se escribe al archivo
                 //}
                 if(qty < strlen((char*)pEmployee))
                 {
