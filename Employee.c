@@ -123,6 +123,7 @@ int employee_setSueldo(Employee* this,int sueldo)
 
     return r;
 }
+
 int employee_getSueldo(Employee* this,int* sueldo)
 {
     int r = RET_ERR;

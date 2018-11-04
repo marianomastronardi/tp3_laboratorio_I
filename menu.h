@@ -3,3 +3,4 @@
 #include <string.h>
 
 int mostrarMenu();
+int mostrarMenuEdit();

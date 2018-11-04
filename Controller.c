@@ -4,6 +4,7 @@
 #include "parser.h"
 #include "LinkedList.h"
 #include "Employee.h"
+#include "menu.h"
 #define RET_OK 1
 #define RET_ERR 0
 
@@ -19,7 +20,15 @@ int controller_loadFromText(char* path, LinkedList* pArrayListEmployee)
     int r = RET_ERR;
     FILE* pFile = fopen(path, "r");
 
-    r = parser_EmployeeFromText(pFile, pArrayListEmployee);
+    if(pFile == NULL)
+    {
+        printf("El archivo no existe.");
+    }
+    else
+    {
+
+        r = parser_EmployeeFromText(pFile, pArrayListEmployee);
+    }
 
     return r;
 }
@@ -36,7 +45,15 @@ int controller_loadFromBinary(char* path, LinkedList* pArrayListEmployee)
     int r = RET_ERR;
     FILE* pFile = fopen(path, "rb");
 
-    r = parser_EmployeeFromText(pFile, pArrayListEmployee);
+    if(pFile == NULL)
+    {
+        printf("El archivo no existe.");
+    }
+    else
+    {
+
+        r = parser_EmployeeFromBinary(pFile, pArrayListEmployee);
+    }
 
     return r;
 }
@@ -57,25 +74,31 @@ int controller_addEmployee(LinkedList* pArrayListEmployee)
     int sueldo;
     int r = RET_ERR;
 
-    printf("Ingrese un ID \n");
-    scanf("%d", &id);
-    r = employee_setId(e,id);
+    if(pArrayListEmployee == NULL)
+    {
+        printf("No hay datos en la lista.\n");
+    }
+    else
+    {
+        printf("Ingrese un ID \n");
+        scanf("%d", &id);
+        r = employee_setId(e,id);
 
-    printf("Ingrese un Nombre \n");
-    scanf("%s", nombre);
-    r = employee_setNombre(e,nombre);
+        printf("Ingrese un Nombre \n");
+        scanf("%s", nombre);
+        r = employee_setNombre(e,nombre);
 
-    printf("Ingrese Horas Trabajadas \n");
-    scanf("%d", &horasTrabajadas);
-    r = employee_setHorasTrabajadas(e, horasTrabajadas);
+        printf("Ingrese Horas Trabajadas \n");
+        scanf("%d", &horasTrabajadas);
+        r = employee_setHorasTrabajadas(e, horasTrabajadas);
 
-    printf("Ingrese un Sueldo \n");
-    scanf("%d", &sueldo);
-    r = employee_setSueldo(e, sueldo);
+        printf("Ingrese un Sueldo \n");
+        scanf("%d", &sueldo);
+        r = employee_setSueldo(e, sueldo);
 
-    r = ll_add(pArrayListEmployee, e);
+        r = ll_add(pArrayListEmployee, e);
+    }
 
-    printf("%d", r);
     return r;
 }
 
@@ -88,6 +111,71 @@ int controller_addEmployee(LinkedList* pArrayListEmployee)
  */
 int controller_editEmployee(LinkedList* pArrayListEmployee)
 {
+    int r = RET_ERR;
+    int idEmployee = 0;
+    int idEmployeeEdit = 0;
+    Employee* aux = employee_new();
+    char name[20];
+    int ht = 0;
+    int sueldo = 0;
+
+    if(pArrayListEmployee != NULL)
+    {
+        printf("Ingrese un ID\n");
+        scanf("%d", &idEmployeeEdit);
+
+        for(int i = 0; i < ll_len(pArrayListEmployee); i++)
+        {
+            aux = (Employee*) ll_get(pArrayListEmployee, i);
+
+            r = employee_getId(aux, &idEmployee);
+
+            if(r == RET_OK)
+            {
+                if(idEmployee == idEmployeeEdit)
+                {
+                    switch(mostrarMenuEdit())
+                    {
+                    case 1:
+
+                        printf("Ingrese un nombre.\n");
+                        scanf("%s", name);
+                        strcpy(aux->nombre, name);
+                        break;
+                    case 2:
+
+                        do
+                        {
+                            printf("Ingrese Horas Trabajadas\n");
+                            scanf("%d", &ht);
+                            aux->horasTrabajadas = ht;
+                        }
+                        while(ht < 0);
+                        break;
+                    case 3:
+
+                        do
+                        {
+                            printf("Ingrese Sueldo\n");
+                            scanf("%d", &sueldo);
+                            aux->sueldo = sueldo;
+                        }
+                        while(sueldo < 0);
+                        break;
+                    default:
+                        break;
+                    }
+                    r = ll_set(pArrayListEmployee, i, aux);
+                    break;
+                }
+            }
+        }
+    }
+    else
+    {
+        printf("No hay datos en la lista.\n");
+    }
+
     return 1;
 }
 
@@ -101,6 +189,36 @@ int controller_editEmployee(LinkedList* pArrayListEmployee)
 int controller_removeEmployee(LinkedList* pArrayListEmployee)
 {
     int r = RET_ERR;
+    int idEmployee;
+    int idEmployeeRemove;
+    Employee* aux = employee_new();
+
+    if(pArrayListEmployee != NULL)
+    {
+        printf("Ingrese un ID\n");
+        scanf("%d", &idEmployeeRemove);
+
+        for(int i = 0; i < ll_len(pArrayListEmployee); i++)
+        {
+            aux = (Employee*) ll_get(pArrayListEmployee, i);
+
+            r = employee_getId(aux, &idEmployee);
+
+            if(r == RET_OK)
+            {
+                if(idEmployee == idEmployeeRemove)
+                {
+                    r = ll_remove(pArrayListEmployee, i);
+                    break;
+                }
+            }
+        }
+    }
+    else
+    {
+        printf("No hay datos en la lista.\n");
+    }
+
     return r;
 }
 
@@ -126,6 +244,10 @@ int controller_ListEmployee(LinkedList* pArrayListEmployee)
             employee_show(emp);
         }
     }
+    else
+    {
+        printf("No hay datos en la lista.\n");
+    }
     return r;
 }
 
@@ -138,6 +260,17 @@ int controller_ListEmployee(LinkedList* pArrayListEmployee)
  */
 int controller_sortEmployee(LinkedList* pArrayListEmployee)
 {
+
+
+    if(pArrayListEmployee == NULL)
+    {
+        printf("No hay datos en la lista.\n");
+    }
+    else
+    {
+
+    }
+
     return 1;
 }
 
@@ -151,21 +284,43 @@ int controller_sortEmployee(LinkedList* pArrayListEmployee)
 int controller_saveAsText(char* path, LinkedList* pArrayListEmployee)
 {
     int r = RET_ERR;
+    int lon = 0;
+    int qty = 0;
 
-    FILE *f;
+    FILE *pFile = fopen(path,"w");
 
-    if((f=fopen("data.csv","w"))==NULL)
+    if(pArrayListEmployee == NULL)
     {
-        printf("Archivo inexistente\n");
+        printf("No hay datos en la lista.\n");
     }
     else
     {
-        f = fopen("data.csv","a");
+        Employee* pEmployee = employee_new();
+        if(pFile==NULL)
+        {
+            printf("Archivo inexistente\n");
+        }
+        else
+        {
+            lon = ll_len(pArrayListEmployee);
+            for(int i = 0; i < lon; i++)
+            {
+                pEmployee = (Employee*) ll_get(pArrayListEmployee, i);
 
-
-
-        fclose(f);
+                //if(r == RET_OK)
+                //{
+                qty=fwrite (pEmployee, sizeof(Employee), strlen((char*)pEmployee), pFile );    //Se escribe al archivo
+                //}
+                if(qty < strlen((char*)pEmployee))
+                {
+                    printf("\nError al escribir el archivo");
+                }
+            }
+            r = RET_OK;
+            fclose(pFile);
+        }
     }
+
     return r;
 }
 
@@ -178,6 +333,44 @@ int controller_saveAsText(char* path, LinkedList* pArrayListEmployee)
  */
 int controller_saveAsBinary(char* path, LinkedList* pArrayListEmployee)
 {
-    return 1;
+    int r = RET_ERR;
+    int lon = 0;
+    int qty = 0;
+
+    FILE *pFile = fopen(path,"wb");
+
+    if(pArrayListEmployee == NULL)
+    {
+        printf("No hay datos en la lista.\n");
+    }
+    else
+    {
+        Employee* pEmployee = employee_new();
+        if(pFile==NULL)
+        {
+            printf("Archivo inexistente\n");
+        }
+        else
+        {
+            lon = ll_len(pArrayListEmployee);
+            for(int i = 0; i < lon; i++)
+            {
+                pEmployee = (Employee*) ll_get(pArrayListEmployee, i);
+
+                //if(r == RET_OK)
+                //{
+                qty=fwrite (pEmployee, sizeof(Employee), strlen((char*)pEmployee), pFile );    //Se escribe al archivo
+                //}
+                if(qty < strlen((char*)pEmployee))
+                {
+                    printf("\nError al escribir el archivo");
+                }
+            }
+            r = RET_OK;
+            fclose(pFile);
+        }
+    }
+
+    return r;
 }
 

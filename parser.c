@@ -104,3 +104,4 @@ int parser_EmployeeFromBinary(FILE* pFile, LinkedList* pArrayListEmployee)
     }
     return r;
 }
+
