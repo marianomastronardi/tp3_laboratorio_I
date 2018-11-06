@@ -70,33 +70,24 @@ int parser_EmployeeFromBinary(FILE* pFile, LinkedList* pArrayListEmployee)
 {
     int r = RET_ERR;
 
-    int id, ht, sueldo;
-    char name[20];
+    //int id, ht, sueldo;
+    //char name[20];
     int line = 0;
 
     if(pFile != NULL)
     {
         do
         {
-            r = fscanf(pFile,"%d,%s,%d,%d\n",&id,name,&ht,&sueldo);
-            if(r==4 && line > 0)
-            {
+
                 Employee* e = employee_new();
-                e->id = id;
-                strcpy(e->nombre, name);
-                e->horasTrabajadas = ht;
-                e->sueldo = sueldo;
+                fread(e, sizeof(Employee), 1, pFile);
+                //e->id = id;
+                //strcpy(e->nombre, name);
+                //e->horasTrabajadas = ht;
+                //e->sueldo = sueldo;
                 ll_add(pArrayListEmployee, e);
                 line++;
-            }
-            else if(line == 0)
-            {
-                line++;
-            }
-            else
-            {
-                break;
-            }
+
         }
         while(!feof(pFile));
         fclose(pFile);

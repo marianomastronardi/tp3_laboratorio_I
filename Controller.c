@@ -284,8 +284,8 @@ int controller_sortEmployee(LinkedList* pArrayListEmployee)
 int controller_saveAsText(char* path, LinkedList* pArrayListEmployee)
 {
     int r = RET_ERR;
-    int lon = 0;
-    int qty = 0;
+    //int lon = 0;
+    //int qty = 0;
 
     FILE *pFile = fopen(path,"w");
 
@@ -302,20 +302,19 @@ int controller_saveAsText(char* path, LinkedList* pArrayListEmployee)
         }
         else
         {
-            lon = ll_len(pArrayListEmployee);
-            for(int i = 0; i < lon; i++)
+            //lon = ll_len(pArrayListEmployee);
+            for(int i = 0; i < ll_len(pArrayListEmployee); i++)
             {
                 pEmployee = (Employee*) ll_get(pArrayListEmployee, i);
-printf("%d", strlen((char*)pEmployee));
-system("pause");
+//printf("%d", strlen((char*)pEmployee));
+//system("pause");
                 //if(r == RET_OK)
                 //{
-                qty=fwrite (pEmployee, sizeof(char), 32/*strlen((char*)pEmployee)*/, pFile );    //Se escribe al archivo
-                //}
-                if(qty < strlen((char*)pEmployee))
+                fprintf(pFile, "%d,%s, %d, %d\n", pEmployee->id, pEmployee->nombre, pEmployee->horasTrabajadas, pEmployee->sueldo);
+                /*if(qty < strlen((char*)pEmployee))
                 {
                     printf("\nError al escribir el archivo");
-                }
+                }*/
             }
             r = RET_OK;
             fclose(pFile);
@@ -335,7 +334,7 @@ system("pause");
 int controller_saveAsBinary(char* path, LinkedList* pArrayListEmployee)
 {
     int r = RET_ERR;
-    int lon = 0;
+    //int lon = 0;
     int qty = 0;
 
     FILE *pFile = fopen(path,"wb");
@@ -353,14 +352,14 @@ int controller_saveAsBinary(char* path, LinkedList* pArrayListEmployee)
         }
         else
         {
-            lon = ll_len(pArrayListEmployee);
-            for(int i = 0; i < lon; i++)
+            //lon = ll_len(pArrayListEmployee);
+            for(int i = 0; i < ll_len(pArrayListEmployee); i++)
             {
                 pEmployee = (Employee*) ll_get(pArrayListEmployee, i);
 
                 //if(r == RET_OK)
                 //{
-                qty=fwrite (pEmployee, sizeof(Employee), strlen((char*)pEmployee), pFile );    //Se escribe al archivo
+                qty=fwrite (pEmployee, sizeof(Employee), 1/*strlen((char*)pEmployee)*/, pFile );    //Se escribe al archivo
                 //}
                 if(qty < strlen((char*)pEmployee))
                 {
