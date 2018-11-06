@@ -243,7 +243,7 @@ int controller_ListEmployee(LinkedList* pArrayListEmployee)
 
     if(pArrayListEmployee != NULL)
     {
-        printf("ID    Nombre        Hs Trab.  Sueldo\n");
+        printf("ID          Nombre        Hs T.  Sueldo\n");
         for(int i = 0; i < l; i++)
         {
             emp = (Employee*) ll_get(pArrayListEmployee, i);
@@ -314,14 +314,14 @@ int controller_saveAsText(char* path, LinkedList* pArrayListEmployee)
 {
     int r = RET_ERR;
     int lon;
-    FILE *pFile = fopen(path,"w");
 
-    if(pArrayListEmployee == NULL)
+    if(ll_len(pArrayListEmployee) == 0)
     {
         printf("No hay datos en la lista.\n");
     }
     else
     {
+        FILE *pFile = fopen(path,"w");
         Employee* pEmployee = employee_new();
         if(pFile==NULL)
         {
@@ -358,14 +358,13 @@ int controller_saveAsBinary(char* path, LinkedList* pArrayListEmployee)
     int qty = 0;
     int lon;
 
-    FILE *pFile = fopen(path,"wb");
-
-    if(pArrayListEmployee == NULL)
+    if(ll_len(pArrayListEmployee) == 0)
     {
         printf("No hay datos en la lista.\n");
     }
     else
     {
+        FILE *pFile = fopen(path,"wb");
         Employee* pEmployee = employee_new();
         if(pFile==NULL)
         {

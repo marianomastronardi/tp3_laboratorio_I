@@ -75,7 +75,7 @@ int menuAscDesc()
     {
         system("cls");
         printf("***********************************\n");
-        printf("    Seleccione el Orden          : \n");
+        printf("    Seleccione el Orden:           \n");
         printf("     0. Descendente                \n");
         printf("     1. Ascendente                 \n");
         printf("***********************************\n");
