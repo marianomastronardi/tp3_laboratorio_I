@@ -45,3 +45,24 @@ int mostrarMenuEdit()
 
     return r;
 }
+
+int menuSort()
+{
+    int r;
+
+    do
+    {
+        system("cls");
+        printf("***********************************\n");
+        printf("    Seleccione un campo a ordenar: \n");
+        printf("     1. ID.                        \n");
+        printf("     2. Nombre.                    \n");
+        printf("     3. Horas Trabajadas.          \n");
+        printf("     4. Sueldo                     \n");
+        printf("***********************************\n");
+        scanf("%d", &r);
+    }
+    while(r < 1 || r > 4);
+
+    return r;
+}

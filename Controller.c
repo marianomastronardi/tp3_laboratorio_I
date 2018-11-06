@@ -260,7 +260,10 @@ int controller_ListEmployee(LinkedList* pArrayListEmployee)
  */
 int controller_sortEmployee(LinkedList* pArrayListEmployee)
 {
-
+    int opcion;
+    int r;
+    Employee* employeeA;
+    Employee* employeeB;
 
     if(pArrayListEmployee == NULL)
     {
@@ -268,10 +271,35 @@ int controller_sortEmployee(LinkedList* pArrayListEmployee)
     }
     else
     {
+        opcion = menuSort();
 
+        for(int i = 0; i < ll_len(pArrayListEmployee) - 1; i++)
+        {
+            employeeA = (Employee*) ll_get(pArrayListEmployee, i);
+            employeeB = (Employee*) ll_get(pArrayListEmployee, i+1);
+
+            switch(opcion)
+            {
+            case 1:
+                r = ll_sort(pArrayListEmployee, employee_sortById(employeeA, employeeB), 0);
+                break;
+
+            case 2:
+                r = ll_sort(pArrayListEmployee, employee_sortByName(employeeA, employeeB), 0);
+                break;
+
+            case 3:
+                r = ll_sort(pArrayListEmployee, employee_sortByWorkHours(employeeA, employeeB), 0);
+                break;
+
+            case 4:
+                r = ll_sort(pArrayListEmployee, employee_sortBySalary(employeeA, employeeB), 0);
+                break;
+            }
+        }
     }
 
-    return 1;
+    return r;
 }
 
 /** \brief Guarda los datos de los empleados en el archivo data.csv (modo texto).
@@ -284,9 +312,7 @@ int controller_sortEmployee(LinkedList* pArrayListEmployee)
 int controller_saveAsText(char* path, LinkedList* pArrayListEmployee)
 {
     int r = RET_ERR;
-    int lon = 0;
-    int qty = 0;
-
+    int lon;
     FILE *pFile = fopen(path,"w");
 
     if(pArrayListEmployee == NULL)
@@ -306,16 +332,9 @@ int controller_saveAsText(char* path, LinkedList* pArrayListEmployee)
             for(int i = 0; i < lon; i++)
             {
                 pEmployee = (Employee*) ll_get(pArrayListEmployee, i);
-printf("%d", strlen((char*)pEmployee));
-system("pause");
-                //if(r == RET_OK)
-                //{
-                qty=fwrite (pEmployee, sizeof(char), 32/*strlen((char*)pEmployee)*/, pFile );    //Se escribe al archivo
-                //}
-                if(qty < strlen((char*)pEmployee))
-                {
-                    printf("\nError al escribir el archivo");
-                }
+
+                fprintf(pFile, "%d, %s, %d, %d\n", pEmployee->id, pEmployee->nombre, pEmployee->horasTrabajadas, pEmployee->sueldo);    //Se escribe al archivo
+
             }
             r = RET_OK;
             fclose(pFile);
@@ -335,8 +354,8 @@ system("pause");
 int controller_saveAsBinary(char* path, LinkedList* pArrayListEmployee)
 {
     int r = RET_ERR;
-    int lon = 0;
     int qty = 0;
+    int lon;
 
     FILE *pFile = fopen(path,"wb");
 
@@ -354,15 +373,14 @@ int controller_saveAsBinary(char* path, LinkedList* pArrayListEmployee)
         else
         {
             lon = ll_len(pArrayListEmployee);
+
             for(int i = 0; i < lon; i++)
             {
                 pEmployee = (Employee*) ll_get(pArrayListEmployee, i);
 
-                //if(r == RET_OK)
-                //{
-                qty=fwrite (pEmployee, sizeof(Employee), strlen((char*)pEmployee), pFile );    //Se escribe al archivo
-                //}
-                if(qty < strlen((char*)pEmployee))
+                qty = fwrite(pEmployee, sizeof(Employee), 1, pFile );    //Se escribe al archivo
+
+                if(qty != 1)
                 {
                     printf("\nError al escribir el archivo");
                 }

@@ -144,3 +144,110 @@ void employee_show(Employee* this)
         printf("%4d %20s %4d %4d\n", this->id, this->nombre, this->horasTrabajadas, this->sueldo);
     }
 }
+
+/** \brief Devuelve un valor al comparar el campo ID de ambos punteros
+ *
+ * \param puntero Employee
+ * \param puntero Employee
+ * \return
+ *             0	if both strings are identical (equal)
+ *      negative	if the ASCII value of first unmatched character is less than second.
+ *      positive    if the ASCII value of first unmatched character is greater than second.
+
+ */
+
+int employee_sortById(Employee* employeeA, Employee* employeeB)
+{
+    int r;
+
+    if(employeeA->id > employeeB->id)
+    {
+        r = 1;
+    }
+    else if(employeeA->id < employeeB->id)
+    {
+        r = -1;
+    }
+    else
+    {
+       r = 0;
+    }
+
+    return r;
+}
+
+/** \brief Devuelve un valor al comparar el campo Nombre de ambos punteros
+ *
+ * \param puntero Employee
+ * \param puntero Employee
+ * \return
+ *             0	if both strings are identical (equal)
+ *      negative	if the ASCII value of first unmatched character is less than second.
+ *      positive    if the ASCII value of first unmatched character is greater than second.
+
+ */
+int employee_sortByName(Employee* employeeA, Employee* employeeB)
+{
+    return strcmp(employeeA->nombre, employeeB->nombre);
+}
+
+/** \brief Devuelve un valor al comparar el campo Horas Trabajadas de ambos punteros
+ *
+ * \param puntero Employee
+ * \param puntero Employee
+ * \return
+ *             0	if both strings are identical (equal)
+ *      negative	if the ASCII value of first unmatched character is less than second.
+ *      positive    if the ASCII value of first unmatched character is greater than second.
+
+ */
+int employee_sortByWorkHours(Employee* employeeA, Employee* employeeB)
+{
+     int r;
+
+    if(employeeA->horasTrabajadas > employeeB->horasTrabajadas)
+    {
+        r = 1;
+    }
+    else if(employeeA->horasTrabajadas < employeeB->horasTrabajadas)
+    {
+        r = -1;
+    }
+    else
+    {
+       r = 0;
+    }
+
+    return r;
+}
+
+/** \brief Devuelve un valor al comparar el campo Salario de ambos punteros
+ *
+ * \param puntero Employee
+ * \param puntero Employee
+ * \return
+ *             0	if both strings are identical (equal)
+ *      negative	if the ASCII value of first unmatched character is less than second.
+ *      positive    if the ASCII value of first unmatched character is greater than second.
+
+ */
+int employee_sortBySalary(Employee* employeeA, Employee* employeeB)
+{
+        int r;
+
+    if(employeeA->sueldo > employeeB->sueldo)
+    {
+        r = 1;
+    }
+    else if(employeeA->sueldo < employeeB->sueldo)
+    {
+        r = -1;
+    }
+    else
+    {
+       r = 0;
+    }
+
+    return r;
+}
+

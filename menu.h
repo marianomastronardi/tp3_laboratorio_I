@@ -4,3 +4,4 @@
 
 int mostrarMenu();
 int mostrarMenuEdit();
+int menuSort();

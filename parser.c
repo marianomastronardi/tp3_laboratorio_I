@@ -16,37 +16,32 @@
 int parser_EmployeeFromText(FILE* pFile, LinkedList* pArrayListEmployee)
 {
     int r = RET_ERR;
-
-    char id[4];
-    char ht[4];
-    char sueldo[4];
+    int qty = 0;
+    char idFile[4];
     char name[20];
-    int line = 0;
+    char htFile[4];
+    char salFile[4];
 
     if(pFile != NULL)
     {
         do
         {
-            r = fscanf(pFile,"%[^,],%[^,],%[^,],%[^\n]\n",id,name,ht,sueldo);
+            qty = fscanf(pFile,"%[^,],%[^,],%[^,],%[^\n]\n",idFile,name,htFile,salFile);
 
-            if(r==4 && line > 0)
+            if(qty!=4)
             {
-                Employee* e = employee_new();
-                e->id = atoi(id);
-                strcpy(e->nombre, name);
-                e->horasTrabajadas = atoi(ht);
-                e->sueldo = atoi(sueldo);
-                ll_add(pArrayListEmployee, e);
-                line++;
-            }
-            else if(line == 0)
-            {
-                line++;
+                printf("\nProblemas para cargar el archivo data.csv\n");
             }
             else
             {
-                break;
+                Employee* pEmployee = employee_new();
+                pEmployee->id = atoi(idFile);
+                strcpy(pEmployee->nombre, name);
+                pEmployee->horasTrabajadas = atoi(htFile);
+                pEmployee->sueldo = atoi(salFile);
+                ll_add(pArrayListEmployee, pEmployee);
             }
+
         }
         while(!feof(pFile));
         fclose(pFile);
@@ -56,6 +51,7 @@ int parser_EmployeeFromText(FILE* pFile, LinkedList* pArrayListEmployee)
     {
         printf("Archivo vacio\n");
     }
+
     return r;
 }
 
@@ -69,39 +65,32 @@ int parser_EmployeeFromText(FILE* pFile, LinkedList* pArrayListEmployee)
 int parser_EmployeeFromBinary(FILE* pFile, LinkedList* pArrayListEmployee)
 {
     int r = RET_ERR;
-
-    int id, ht, sueldo;
-    char name[20];
-    int line = 0;
+    int qty;
 
     if(pFile != NULL)
     {
         do
         {
-            r = fscanf(pFile,"%d,%s,%d,%d\n",&id,name,&ht,&sueldo);
-            if(r==4 && line > 0)
+            Employee* pEmployee = employee_new();
+            qty = fread(pEmployee,sizeof(Employee), 1, pFile);
+            /*if(qty!=4)
             {
-                Employee* e = employee_new();
-                e->id = id;
-                strcpy(e->nombre, name);
-                e->horasTrabajadas = ht;
-                e->sueldo = sueldo;
-                ll_add(pArrayListEmployee, e);
-                line++;
-            }
-            else if(line == 0)
-            {
-                line++;
+                printf("\nProblemas para cargar el archivo data.bin\n");
             }
             else
             {
-                break;
-            }
+              */  ll_add(pArrayListEmployee, pEmployee);
+           // }
         }
         while(!feof(pFile));
         fclose(pFile);
         r = RET_OK;
     }
+    else
+    {
+        printf("\nArchivo vacio\n");
+    }
+
     return r;
 }
 
