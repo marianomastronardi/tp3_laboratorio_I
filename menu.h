@@ -5,3 +5,4 @@
 int mostrarMenu();
 int mostrarMenuEdit();
 int menuSort();
+int menuAscDesc();

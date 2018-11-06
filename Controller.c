@@ -267,9 +267,8 @@ int controller_ListEmployee(LinkedList* pArrayListEmployee)
 int controller_sortEmployee(LinkedList* pArrayListEmployee)
 {
     int opcion;
+    int order;
     int r;
-    void* employeeA;
-    void* employeeB;
 
     if(pArrayListEmployee == NULL)
     {
@@ -278,31 +277,26 @@ int controller_sortEmployee(LinkedList* pArrayListEmployee)
     else
     {
         opcion = menuSort();
+        order = menuAscDesc();
 
-        for(int i = 0; i < ll_len(pArrayListEmployee) - 1; i++)
+        switch(opcion)
         {
-            employeeA = ll_get(pArrayListEmployee, i);
-            employeeB = ll_get(pArrayListEmployee, i+1);
+        case 1:
 
-            switch(opcion)
-            {
-            case 1:
+            r = ll_sort(pArrayListEmployee, employee_sortById, order);
+            break;
 
-                r = ll_sort(pArrayListEmployee, employee_sortById(employeeA, employeeB), 0);
-                break;
+        case 2:
+            r = ll_sort(pArrayListEmployee, employee_sortByName, order);
+            break;
 
-            case 2:
-                r = ll_sort(pArrayListEmployee, employee_sortByName(employeeA, employeeB), 0);
-                break;
+        case 3:
+            r = ll_sort(pArrayListEmployee, employee_sortByWorkHours, order);
+            break;
 
-            case 3:
-                r = ll_sort(pArrayListEmployee, employee_sortByWorkHours(employeeA, employeeB), 0);
-                break;
-
-            case 4:
-                r = ll_sort(pArrayListEmployee, employee_sortBySalary(employeeA, employeeB), 0);
-                break;
-            }
+        case 4:
+            r = ll_sort(pArrayListEmployee, employee_sortBySalary, order);
+            break;
         }
     }
 

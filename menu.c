@@ -66,3 +66,22 @@ int menuSort()
 
     return r;
 }
+
+int menuAscDesc()
+{
+    int r;
+
+    do
+    {
+        system("cls");
+        printf("***********************************\n");
+        printf("    Seleccione el Orden          : \n");
+        printf("     0. Descendente                \n");
+        printf("     1. Ascendente                 \n");
+        printf("***********************************\n");
+        scanf("%d", &r);
+    }
+    while(r < 0 || r > 1);
+
+    return r;
+}
