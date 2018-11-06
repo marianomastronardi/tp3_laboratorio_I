@@ -312,7 +312,13 @@ int controller_sortEmployee(LinkedList* pArrayListEmployee)
 int controller_saveAsText(char* path, LinkedList* pArrayListEmployee)
 {
     int r = RET_ERR;
+<<<<<<< HEAD
     int lon;
+=======
+    //int lon = 0;
+    //int qty = 0;
+
+>>>>>>> bfca7783021e5b6261b8d4fbe3e632148adbe18d
     FILE *pFile = fopen(path,"w");
 
     if(pArrayListEmployee == NULL)
@@ -328,13 +334,25 @@ int controller_saveAsText(char* path, LinkedList* pArrayListEmployee)
         }
         else
         {
-            lon = ll_len(pArrayListEmployee);
-            for(int i = 0; i < lon; i++)
+            //lon = ll_len(pArrayListEmployee);
+            for(int i = 0; i < ll_len(pArrayListEmployee); i++)
             {
                 pEmployee = (Employee*) ll_get(pArrayListEmployee, i);
+<<<<<<< HEAD
 
                 fprintf(pFile, "%d, %s, %d, %d\n", pEmployee->id, pEmployee->nombre, pEmployee->horasTrabajadas, pEmployee->sueldo);    //Se escribe al archivo
 
+=======
+//printf("%d", strlen((char*)pEmployee));
+//system("pause");
+                //if(r == RET_OK)
+                //{
+                fprintf(pFile, "%d,%s, %d, %d\n", pEmployee->id, pEmployee->nombre, pEmployee->horasTrabajadas, pEmployee->sueldo);
+                /*if(qty < strlen((char*)pEmployee))
+                {
+                    printf("\nError al escribir el archivo");
+                }*/
+>>>>>>> bfca7783021e5b6261b8d4fbe3e632148adbe18d
             }
             r = RET_OK;
             fclose(pFile);
@@ -354,6 +372,10 @@ int controller_saveAsText(char* path, LinkedList* pArrayListEmployee)
 int controller_saveAsBinary(char* path, LinkedList* pArrayListEmployee)
 {
     int r = RET_ERR;
+<<<<<<< HEAD
+=======
+    //int lon = 0;
+>>>>>>> bfca7783021e5b6261b8d4fbe3e632148adbe18d
     int qty = 0;
     int lon;
 
@@ -372,6 +394,7 @@ int controller_saveAsBinary(char* path, LinkedList* pArrayListEmployee)
         }
         else
         {
+<<<<<<< HEAD
             lon = ll_len(pArrayListEmployee);
 
             for(int i = 0; i < lon; i++)
@@ -381,6 +404,18 @@ int controller_saveAsBinary(char* path, LinkedList* pArrayListEmployee)
                 qty = fwrite(pEmployee, sizeof(Employee), 1, pFile );    //Se escribe al archivo
 
                 if(qty != 1)
+=======
+            //lon = ll_len(pArrayListEmployee);
+            for(int i = 0; i < ll_len(pArrayListEmployee); i++)
+            {
+                pEmployee = (Employee*) ll_get(pArrayListEmployee, i);
+
+                //if(r == RET_OK)
+                //{
+                qty=fwrite (pEmployee, sizeof(Employee), 1/*strlen((char*)pEmployee)*/, pFile );    //Se escribe al archivo
+                //}
+                if(qty < strlen((char*)pEmployee))
+>>>>>>> bfca7783021e5b6261b8d4fbe3e632148adbe18d
                 {
                     printf("\nError al escribir el archivo");
                 }
