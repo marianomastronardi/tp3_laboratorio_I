@@ -156,15 +156,15 @@ void employee_show(Employee* this)
 
  */
 
-int employee_sortById(Employee* employeeA, Employee* employeeB)
+int employee_sortById(void* employeeA, void* employeeB)
 {
     int r;
 
-    if(employeeA->id > employeeB->id)
+    if(((Employee*)employeeA)->id > ((Employee*)employeeB)->id)
     {
         r = 1;
     }
-    else if(employeeA->id < employeeB->id)
+    else if(((Employee*)employeeA)->id < ((Employee*)employeeB)->id)
     {
         r = -1;
     }
@@ -186,9 +186,9 @@ int employee_sortById(Employee* employeeA, Employee* employeeB)
  *      positive    if the ASCII value of first unmatched character is greater than second.
 
  */
-int employee_sortByName(Employee* employeeA, Employee* employeeB)
+int employee_sortByName(void* employeeA, void* employeeB)
 {
-    return strcmp(employeeA->nombre, employeeB->nombre);
+    return strcmp(((Employee*)employeeA)->nombre, ((Employee*)employeeB)->nombre);
 }
 
 /** \brief Devuelve un valor al comparar el campo Horas Trabajadas de ambos punteros
@@ -201,15 +201,15 @@ int employee_sortByName(Employee* employeeA, Employee* employeeB)
  *      positive    if the ASCII value of first unmatched character is greater than second.
 
  */
-int employee_sortByWorkHours(Employee* employeeA, Employee* employeeB)
+int employee_sortByWorkHours(void* employeeA, void* employeeB)
 {
      int r;
 
-    if(employeeA->horasTrabajadas > employeeB->horasTrabajadas)
+    if(((Employee*)employeeA)->horasTrabajadas > ((Employee*)employeeB)->horasTrabajadas)
     {
         r = 1;
     }
-    else if(employeeA->horasTrabajadas < employeeB->horasTrabajadas)
+    else if(((Employee*)employeeA)->horasTrabajadas < ((Employee*)employeeB)->horasTrabajadas)
     {
         r = -1;
     }
@@ -231,15 +231,15 @@ int employee_sortByWorkHours(Employee* employeeA, Employee* employeeB)
  *      positive    if the ASCII value of first unmatched character is greater than second.
 
  */
-int employee_sortBySalary(Employee* employeeA, Employee* employeeB)
+int employee_sortBySalary(void* employeeA, void* employeeB)
 {
         int r;
 
-    if(employeeA->sueldo > employeeB->sueldo)
+    if(((Employee*)employeeA)->sueldo > ((Employee*)employeeB)->sueldo)
     {
         r = 1;
     }
-    else if(employeeA->sueldo < employeeB->sueldo)
+    else if(((Employee*)employeeA)->sueldo < ((Employee*)employeeB)->sueldo)
     {
         r = -1;
     }

@@ -22,11 +22,11 @@ int controller_loadFromText(char* path, LinkedList* pArrayListEmployee)
 
     if(pFile == NULL)
     {
-        printf("El archivo no existe.");
+        printf("\nEl archivo no existe.\n");
     }
     else
     {
-
+        r = ll_clear(pArrayListEmployee);
         r = parser_EmployeeFromText(pFile, pArrayListEmployee);
     }
 
@@ -47,11 +47,11 @@ int controller_loadFromBinary(char* path, LinkedList* pArrayListEmployee)
 
     if(pFile == NULL)
     {
-        printf("El archivo no existe.");
+        printf("\nEl archivo no existe.\n");
     }
     else
     {
-
+        r = ll_clear(pArrayListEmployee);
         r = parser_EmployeeFromBinary(pFile, pArrayListEmployee);
     }
 
@@ -114,7 +114,7 @@ int controller_editEmployee(LinkedList* pArrayListEmployee)
     int r = RET_ERR;
     int idEmployee = 0;
     int idEmployeeEdit = 0;
-    Employee* aux = employee_new();
+    void* aux = employee_new();
     char name[20];
     int ht = 0;
     int sueldo = 0;
@@ -126,9 +126,9 @@ int controller_editEmployee(LinkedList* pArrayListEmployee)
 
         for(int i = 0; i < ll_len(pArrayListEmployee); i++)
         {
-            aux = (Employee*) ll_get(pArrayListEmployee, i);
+            aux = ll_get(pArrayListEmployee, i);
 
-            r = employee_getId(aux, &idEmployee);
+            r = employee_getId((Employee*) aux, &idEmployee);
 
             if(r == RET_OK)
             {
@@ -140,7 +140,7 @@ int controller_editEmployee(LinkedList* pArrayListEmployee)
 
                         printf("Ingrese un nombre.\n");
                         scanf("%s", name);
-                        strcpy(aux->nombre, name);
+                        r = employee_setNombre((Employee*)aux, name);
                         break;
                     case 2:
 
@@ -148,7 +148,7 @@ int controller_editEmployee(LinkedList* pArrayListEmployee)
                         {
                             printf("Ingrese Horas Trabajadas\n");
                             scanf("%d", &ht);
-                            aux->horasTrabajadas = ht;
+                            r = employee_setHorasTrabajadas((Employee*) aux, ht);
                         }
                         while(ht < 0);
                         break;
@@ -158,13 +158,19 @@ int controller_editEmployee(LinkedList* pArrayListEmployee)
                         {
                             printf("Ingrese Sueldo\n");
                             scanf("%d", &sueldo);
-                            aux->sueldo = sueldo;
+                            r = employee_setSueldo((Employee*) aux, sueldo);
                         }
                         while(sueldo < 0);
                         break;
                     default:
                         break;
                     }
+
+                    if(r == RET_ERR)
+                    {
+                        printf("\nProblemas pata modificar el campo.\n");
+                    }
+
                     r = ll_set(pArrayListEmployee, i, aux);
                     break;
                 }
@@ -262,8 +268,8 @@ int controller_sortEmployee(LinkedList* pArrayListEmployee)
 {
     int opcion;
     int r;
-    Employee* employeeA;
-    Employee* employeeB;
+    void* employeeA;
+    void* employeeB;
 
     if(pArrayListEmployee == NULL)
     {
@@ -275,12 +281,13 @@ int controller_sortEmployee(LinkedList* pArrayListEmployee)
 
         for(int i = 0; i < ll_len(pArrayListEmployee) - 1; i++)
         {
-            employeeA = (Employee*) ll_get(pArrayListEmployee, i);
-            employeeB = (Employee*) ll_get(pArrayListEmployee, i+1);
+            employeeA = ll_get(pArrayListEmployee, i);
+            employeeB = ll_get(pArrayListEmployee, i+1);
 
             switch(opcion)
             {
             case 1:
+
                 r = ll_sort(pArrayListEmployee, employee_sortById(employeeA, employeeB), 0);
                 break;
 
@@ -312,13 +319,7 @@ int controller_sortEmployee(LinkedList* pArrayListEmployee)
 int controller_saveAsText(char* path, LinkedList* pArrayListEmployee)
 {
     int r = RET_ERR;
-<<<<<<< HEAD
     int lon;
-=======
-    //int lon = 0;
-    //int qty = 0;
-
->>>>>>> bfca7783021e5b6261b8d4fbe3e632148adbe18d
     FILE *pFile = fopen(path,"w");
 
     if(pArrayListEmployee == NULL)
@@ -334,25 +335,13 @@ int controller_saveAsText(char* path, LinkedList* pArrayListEmployee)
         }
         else
         {
-            //lon = ll_len(pArrayListEmployee);
-            for(int i = 0; i < ll_len(pArrayListEmployee); i++)
+            lon = ll_len(pArrayListEmployee);
+            for(int i = 0; i < lon; i++)
             {
                 pEmployee = (Employee*) ll_get(pArrayListEmployee, i);
-<<<<<<< HEAD
 
                 fprintf(pFile, "%d, %s, %d, %d\n", pEmployee->id, pEmployee->nombre, pEmployee->horasTrabajadas, pEmployee->sueldo);    //Se escribe al archivo
 
-=======
-//printf("%d", strlen((char*)pEmployee));
-//system("pause");
-                //if(r == RET_OK)
-                //{
-                fprintf(pFile, "%d,%s, %d, %d\n", pEmployee->id, pEmployee->nombre, pEmployee->horasTrabajadas, pEmployee->sueldo);
-                /*if(qty < strlen((char*)pEmployee))
-                {
-                    printf("\nError al escribir el archivo");
-                }*/
->>>>>>> bfca7783021e5b6261b8d4fbe3e632148adbe18d
             }
             r = RET_OK;
             fclose(pFile);
@@ -372,10 +361,6 @@ int controller_saveAsText(char* path, LinkedList* pArrayListEmployee)
 int controller_saveAsBinary(char* path, LinkedList* pArrayListEmployee)
 {
     int r = RET_ERR;
-<<<<<<< HEAD
-=======
-    //int lon = 0;
->>>>>>> bfca7783021e5b6261b8d4fbe3e632148adbe18d
     int qty = 0;
     int lon;
 
@@ -394,7 +379,6 @@ int controller_saveAsBinary(char* path, LinkedList* pArrayListEmployee)
         }
         else
         {
-<<<<<<< HEAD
             lon = ll_len(pArrayListEmployee);
 
             for(int i = 0; i < lon; i++)
@@ -404,18 +388,6 @@ int controller_saveAsBinary(char* path, LinkedList* pArrayListEmployee)
                 qty = fwrite(pEmployee, sizeof(Employee), 1, pFile );    //Se escribe al archivo
 
                 if(qty != 1)
-=======
-            //lon = ll_len(pArrayListEmployee);
-            for(int i = 0; i < ll_len(pArrayListEmployee); i++)
-            {
-                pEmployee = (Employee*) ll_get(pArrayListEmployee, i);
-
-                //if(r == RET_OK)
-                //{
-                qty=fwrite (pEmployee, sizeof(Employee), 1/*strlen((char*)pEmployee)*/, pFile );    //Se escribe al archivo
-                //}
-                if(qty < strlen((char*)pEmployee))
->>>>>>> bfca7783021e5b6261b8d4fbe3e632148adbe18d
                 {
                     printf("\nError al escribir el archivo");
                 }

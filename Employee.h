@@ -26,9 +26,9 @@ int employee_getSueldo(Employee* this,int* sueldo);
 
 void employee_show(Employee* this);
 
-int employee_sortById(Employee* employeeA, Employee* employeeB);
-int employee_sortByName(Employee* employeeA, Employee* employeeB);
-int employee_sortByWorkHours(Employee* employeeA, Employee* employeeB);
-int employee_sortBySalary(Employee* employeeA, Employee* employeeB);
+int employee_sortById(void* employeeA, void* employeeB);
+int employee_sortByName(void* employeeA, void* employeeB);
+int employee_sortByWorkHours(void* employeeA, void* employeeB);
+int employee_sortBySalary(void* employeeA, void* employeeB);
 
 #endif // employee_H_INCLUDED
